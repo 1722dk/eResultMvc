@@ -1,0 +1,60 @@
+﻿@model IIT.EResult.Models.CourseModel
+
+@{
+        //ViewBag.Title = "Create";
+}
+
+<hgroup class="title">
+    <h1>@ViewBag.Title.</h1>
+</hgroup>
+
+<section id="studentForm">
+    @using (Html.BeginForm("Create", "Course", FormMethod.Post, new { id = "mainForm", name = "mainForm" }))
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true)
+
+        <fieldset>
+            <legend>Course Form</legend>
+            @if (ViewBag.EditMode)
+            {
+                @Html.HiddenFor(m => m.Id)
+            }
+            <div>
+                @Html.LabelFor(m => m.CourseId)
+            </div>
+            <div>
+                @Html.TextBoxFor(m => m.CourseId)
+                @Html.ValidationMessageFor(m => m.CourseId)
+            </div>
+            <div>
+                @Html.LabelFor(m => m.CourseTitle)
+            </div>
+            <div>
+                @Html.TextBoxFor(m => m.CourseTitle)
+                @Html.ValidationMessageFor(m => m.CourseTitle)
+            </div>
+            <div>
+                @Html.LabelFor(m => m.CourseCredit)
+            </div>
+            <div>
+                @Html.DropDownListFor(model => model.CourseCredit, new List<SelectListItem> 
+                                                                { 
+                                                                    new SelectListItem { Text = "--- Select Course Credit ---", Value = "0" },
+                                                                    new SelectListItem { Text = "2", Value = "2" },
+                                                                    new SelectListItem { Text = "3", Value = "3" },
+                                                                    new SelectListItem { Text = "4", Value = "4" },
+                                                                    new SelectListItem { Text = "6", Value = "6" },
+                                                                }, new { @class = "edroupdown" })
+                @Html.ValidationMessageFor(m => m.CourseCredit)
+            </div>
+            <div>
+                <input type="submit" value="Submit" />
+            </div>
+        </fieldset>
+    }
+</section>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

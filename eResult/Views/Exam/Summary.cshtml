@@ -1,0 +1,65 @@
+﻿@model IEnumerable<IIT.EResult.Models.ExamModel>
+
+@{
+    ViewBag.Title = "Exam Summary";
+}
+
+<style type="text/css">
+    th {
+        padding-right: 20px;
+    }
+</style>
+<h2>Exam Summary</h2>
+
+<p>@Html.ActionLink("Create New", "Create", "Exam")</p>
+<div id="message" class="message-success">
+    @if (ViewBag.Mode)
+    {
+        @ViewBag.Message
+    }
+</div>
+<div>
+    <table>
+        <tr style="background-color: gray;">
+           @* <th>Id</th>*@
+            <th>Batch No</th>
+            <th>Course Id</th>
+            <th>Exam Type</th>
+            <th>Exam No</th>
+            <th>Marks</th>
+            <th></th>
+        </tr>
+        @foreach (var item in Model)
+        {
+            <tr>
+                @*<td>@Html.DisplayFor(modelItem => item.Id)</td>*@
+                <td>@Html.DisplayFor(modelItem => item.BatchNo)</td>
+                <td>@Html.DisplayFor(modelItem => item.CourseId)</td>
+                <td>@Html.DisplayFor(modelItem => item.ExamType)</td>
+                <td>@Html.DisplayFor(modelItem => item.ExamNo)</td>
+                <td>@Html.DisplayFor(modelItem => item.ExamMarks)</td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                </td>
+            </tr>
+        }
+    </table>
+</div>
+<div>
+    @*<script type="text/javascript">
+        $(document).ready(function() {
+            if ($("#message:contains('Successfully')")) {
+                $("#message").addClass('message-success');
+            }
+            if ($("#message:contains('Failed')")) {
+                $("#message").addClass('message-error');
+            }
+            if ($("#message").val().length > 0) {
+                $("#message").hide(slow);
+            }
+        });
+    </script>*@
+
+</div>

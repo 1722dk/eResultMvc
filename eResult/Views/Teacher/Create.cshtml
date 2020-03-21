@@ -1,0 +1,69 @@
+﻿@model IIT.EResult.Models.TeacherModel
+
+@{
+        //ViewBag.Title = "Create";
+}
+
+<hgroup class="title">
+    <h1>@ViewBag.Title.</h1>
+</hgroup>
+
+<section id="studentForm">
+    @using (Html.BeginForm("Create", "Teacher", FormMethod.Post, new { id = "mainForm", name = "mainForm" }))
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true)
+
+        <fieldset>
+            <legend>Teacher Form</legend>
+            @if (ViewBag.EditMode)
+            {
+                @Html.HiddenFor(m => m.Id)
+            }
+            <div>
+                @Html.LabelFor(m => m.Name)
+            </div>
+            <div>
+                @Html.TextBoxFor(m => m.Name)
+                @Html.ValidationMessageFor(m => m.Name)
+            </div>
+            <div>
+                @Html.LabelFor(m => m.Designation)
+            </div>
+            <div>
+                @Html.DropDownListFor(model => model.Designation, new List<SelectListItem> 
+                                                                { 
+                                                                    new SelectListItem { Text = "--- Select Designation ---", Value = "0" },
+                                                                    new SelectListItem { Text = "Lecturer", Value = "Lecturer" },
+                                                                    new SelectListItem { Text = "Assistant Professor", Value = "Assistant Professor" },
+                                                                    new SelectListItem { Text = "Associative Professor", Value = "Associative Professor" },
+                                                                    new SelectListItem { Text = "Professor", Value = "Professor" },
+                                                                }, new { @class = "edroupdown" })
+               @* @Html.TextBoxFor(m => m.Designation)*@
+                @Html.ValidationMessageFor(m => m.Designation)
+            </div>
+            <div>
+                @Html.LabelFor(m => m.Email)
+            </div>
+            <div>
+                @Html.TextBoxFor(m => m.Email)
+                @Html.ValidationMessageFor(m => m.Email)
+            </div>
+            <div>
+                @Html.LabelFor(m => m.ContactNo)
+            </div>
+            <div>
+                @Html.TextBoxFor(m => m.ContactNo)
+                @Html.ValidationMessageFor(m => m.ContactNo)
+            </div>
+
+            <div>
+                <input type="submit" value="Submit" />
+            </div>
+        </fieldset>
+    }
+</section>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

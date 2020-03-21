@@ -1,0 +1,40 @@
+﻿@model IIT.EResult.Models.ExamResultModel
+
+@{
+    ViewBag.Title = "Exam Details";
+    //ViewBag.Name = Model.Name;
+}
+
+<h2>@ViewBag.Title</h2>
+<div>
+    <fieldset>
+        <legend>Exam Details</legend>
+        <table>
+            <tr>
+                <td>@Html.LabelFor(m => m.CourseId)</td>
+                <td>@Html.DisplayFor(m => m.CourseId)</td>
+            </tr>
+            <tr>
+                <td>@Html.LabelFor(m => m.BatchNo)</td>
+                <td>@Html.DisplayFor(m => m.BatchNo)</td>
+            </tr>
+            <tr>
+                <td>@Html.LabelFor(m => m.StudentId)</td>
+                <td>@Html.DisplayFor(m => m.StudentId)</td>
+            </tr>
+            <tr>
+                <td>@Html.LabelFor(m => m.ExamType)</td>
+                <td>@Html.DisplayFor(m => m.ExamType)</td>
+            </tr>
+            <tr>
+                <td>@Html.LabelFor(m => m.Mark)</td>
+                <td>@Html.DisplayFor(m => m.Mark)</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>@Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = Model.Id })</td>
+            </tr>
+        </table>
+    </fieldset>
+</div>

@@ -1,0 +1,272 @@
+﻿@model IEnumerable<IIT.EResult.Models.ExamResultModel>
+
+@{
+    ViewBag.Title = "Exam Result Summary";
+}
+<link href="@Url.Content("~/Content/eResult.css")" type="text/css" rel="stylesheet" />
+<script src="@Url.Content("~/Scripts/jquery-1.7.1.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.unobtrusive-ajax.min.js")" type="text/javascript"></script>
+<style type="text/css">
+    input, textarea
+    {
+        width: 50px;
+    }
+</style>
+
+<script type="text/javascript">
+    $(function () {
+        $("#btnNewResult").on("click", function () {
+            $("#divMessage").html("");
+            if (validateSelection()) {
+                var courseId = $("#CourseId option:selected").val();
+                var batchNo = $("#BatchNo option:selected").val();
+                var examType = $("#ExamType option:selected").val();
+                var examNo = $("#ExamNo option:selected").val();
+                $.ajax({
+                    url: "@(Url.Action("NewExamResult", "ExamResult"))",
+                    type: "POST",
+                    data: { courseId: courseId, batchNo: batchNo, examType: examType, examNo: examNo },
+                    cache: false,
+                    async: true,
+                    success: function (result) {
+                        $("#divNewResultEntry").html(result);
+                    },
+                    error: function (jqXhr, textStatus, errorThrown) {
+                        $("#divNewResultEntry").html("Error: " + textStatus + " " + errorThrown);
+                    }
+                });
+            }
+        });
+        $("#btnViewResult").on("click", function () {
+            if (validateSelection2()) {
+                var courseId = $("#CourseId option:selected").val();
+                var batchNo = $("#BatchNo option:selected").val();
+                //var examType = $("#ExamType option:selected").val();
+                //var examNo = $("#ExamNo option:selected").val();
+                $.ajax({
+                    url: "@(Url.Action("ViewExamResult", "ExamResult"))",
+                    type: "POST",
+                    data: { courseId: courseId, batchNo: batchNo },//, examType: examType, examNo: examNo },
+                    cache: false,
+                    async: true,
+                    success: function (result) {
+                        $("#divNewResultEntry").html(result);
+                    },
+                    error: function (jqXhr, textStatus, errorThrown) {
+                        $("#divNewResultEntry").html("Error: " + textStatus + " " + errorThrown);
+                    }
+                });
+            }
+        });
+        $("#btnClearSelection").on("click", function () {
+            $("#divMessage").html("");
+            
+            $("#CourseId").val("");
+            $("#BatchNo").val("");
+            $("#ExamType").val("");
+            $("#ExamNo").val("");
+            
+            if (!$("#spnCourseId").hasClass("ehidden")) {
+                $("#spnCourseId").addClass("ehidden").removeClass("eshow");
+            }
+            if (!$("#spnBatchNo").hasClass("ehidden")) {
+                $("#spnBatchNo").addClass("ehidden").removeClass("eshow");
+            }
+            if (!$("#spnExamType").hasClass("ehidden")) {
+                $("#spnExamType").addClass("ehidden").removeClass("eshow");
+            }
+            if (!$("#spnExamNo").hasClass("ehidden")) {
+                $("#spnExamNo").addClass("ehidden").removeClass("eshow");
+            }
+        });
+        function validateSelection() {
+            var isValid = true;
+            if ($("#CourseId option:selected").val() == "") {
+                $("#spnCourseId").removeClass("ehidden").addClass("eshow");
+                //$("#CourseId").focus();
+                isValid = false;
+            } else {
+                if (!$("#spnCourseId").hasClass("ehidden")) {
+                    $("#spnCourseId").addClass("ehidden").removeClass("eshow");
+                }
+            }
+            if ($("#BatchNo option:selected").val() == "") {
+                $("#spnBatchNo").removeClass("ehidden").addClass("eshow");
+                //$("#BatchNo").focus();
+                isValid = false;
+            } else {
+                if (!$("#spnBatchNo").hasClass("ehidden")) {
+                    $("#spnBatchNo").addClass("ehidden").removeClass("eshow");
+                }
+            }
+            if ($("#ExamType option:selected").val() == "") {
+                $("#spnExamType").removeClass("ehidden").addClass("eshow");
+                //$("#ExamType").focus();
+                isValid = false;
+            } else {
+                if (!$("#spnExamType").hasClass("ehidden")) {
+                    $("#spnExamType").addClass("ehidden").removeClass("eshow");
+                }
+            }
+            if ($("#ExamNo option:selected").val() == "") {
+                $("#spnExamNo").removeClass("ehidden").addClass("eshow");
+               // $("#ExamNo").focus();
+                isValid = false;
+            } else {
+                if (!$("#spnExamNo").hasClass("ehidden")) {
+                    $("#spnExamNo").addClass("ehidden").removeClass("eshow");
+                }
+            }
+            return isValid;
+        }
+        function validateSelection2() {
+            var isValid = true;
+            if ($("#CourseId option:selected").val() == "") {
+                $("#spnCourseId").removeClass("ehidden").addClass("eshow");
+                //$("#CourseId").focus();
+                isValid = false;
+            } else {
+                if (!$("#spnCourseId").hasClass("ehidden")) {
+                    $("#spnCourseId").addClass("ehidden").removeClass("eshow");
+                }
+            }
+            if ($("#BatchNo option:selected").val() == "") {
+                $("#spnBatchNo").removeClass("ehidden").addClass("eshow");
+                //$("#BatchNo").focus();
+                isValid = false;
+            } else {
+                if (!$("#spnBatchNo").hasClass("ehidden")) {
+                    $("#spnBatchNo").addClass("ehidden").removeClass("eshow");
+                }
+            }
+            return isValid;
+        }
+
+        //if ($("#message").val() == "") {
+        //    $("#divMessage").html("");
+        //}
+    });
+</script>
+<hgroup class="title" style="margin-bottom: 0;margin-top: 15px;">
+    <h1>@ViewBag.Title.</h1>
+</hgroup>
+
+<section id="resutlEntryForm">
+    @using (Html.BeginForm("SubmitExamResult", "ExamResult", FormMethod.Post, new { id = "mainForm" }))
+    {
+        <div id="divResultSummary">
+            <fieldset>
+                <legend>Exam Result</legend>
+                @*@Html.Hidden("Message", (string)ViewBag.Message, new { id = "message" })*@
+                <table>
+                    <tr>
+                        <td>
+                            <div>
+                                <div>
+                                    @Html.Label("CourseId")
+                                </div>
+                                <div>
+                                    @Html.DropDownList("CourseId", new List<SelectListItem>
+                                        {
+                                            new SelectListItem {Text = "--- Select Course ---", Value = ""},
+                                            new SelectListItem {Text = "MITM301", Value = "MITM301"},
+                                            new SelectListItem {Text = "MITM302", Value = "MITM302"},
+                                            new SelectListItem {Text = "MITM304", Value = "MITM304"},
+                                            new SelectListItem {Text = "MITM306", Value = "MITM306"},
+                                            new SelectListItem {Text = "MITE403", Value = "MITE403"},
+                                            new SelectListItem {Text = "MITE404", Value = "MITE404"},
+                                            new SelectListItem {Text = "MITE408", Value = "MITE408"},
+                                            new SelectListItem {Text = "MITE411", Value = "MITE411"},
+                                            new SelectListItem {Text = "MITE412", Value = "MITE412"},
+                                            new SelectListItem {Text = "MITP421", Value = "MITP421"},
+                                        }, new { @class = "edroupdown2" })
+                                    <span id="spnCourseId" class="ehidden">CourseId Required</span>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <div>
+                                <div>
+                                    @Html.Label("ExamType")
+                                </div>
+                                <div>
+                                    @Html.DropDownList("ExamType", new List<SelectListItem>
+                                        {
+                                            new SelectListItem {Text = "--- Select Exam Type ---", Value = ""},
+                                            new SelectListItem {Text = "Quiz", Value = "Quiz"},
+                                            new SelectListItem {Text = "Assignment", Value = "Assignment"},
+                                            new SelectListItem {Text = "Presentation", Value = "Presentation"},
+                                            new SelectListItem {Text = "Attendance", Value = "Attendance"},
+                                            new SelectListItem {Text = "Mid Term", Value = "Mid Term"},
+                                            new SelectListItem {Text = "Final", Value = "Final"},
+                                        }, new { @class = "edroupdown2" })
+                                    <span id="spnExamType" class="ehidden">ExamType Required</span>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div>
+                                <div>
+                                    @Html.Label("BatchNo")
+                                </div>
+                                <div>
+                                    @Html.DropDownList("BatchNo", new List<SelectListItem>
+                                        {
+                                            new SelectListItem {Text = "--- Select Batch ---", Value = ""},
+                                            new SelectListItem {Text = "MIT-7th", Value = "MIT-7th"},
+                                            new SelectListItem {Text = "MIT-8th", Value = "MIT-8th"},
+                                            new SelectListItem {Text = "MIT-9th", Value = "MIT-9th"},
+                                            new SelectListItem {Text = "MIT-10th", Value = "MIT-10th"},
+                                            new SelectListItem {Text = "MIT-11th", Value = "MIT-11th"},
+                                        }, new { @class = "edroupdown2" })
+                                    <span id="spnBatchNo" class="ehidden">BatchNo Required</span>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <div>
+                                <div>
+                                    @Html.Label("ExamNo")
+                                </div>
+
+                                <div>
+                                    @Html.DropDownList("ExamNo", new List<SelectListItem>
+                                        {
+                                            new SelectListItem {Text = "--- Select Exam No ---", Value = ""},
+                                            new SelectListItem {Text = "1", Value = "1"},
+                                            new SelectListItem {Text = "2", Value = "2"},
+                                            new SelectListItem {Text = "3", Value = "3"},
+                                            new SelectListItem {Text = "4", Value = "4"},
+                                            new SelectListItem {Text = "5", Value = "5"},
+                                        }, new { @class = "edroupdown2" })
+                                    <span id="spnExamNo" class="ehidden">ExamNo Required</span>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+                <div>
+                    <input type="button" id="btnNewResult" value="Input Marks" />
+                    <input type="button" id="btnViewResult" value="View Result" />
+                    <input type="button" id="btnClearSelection" value="Clear Selection" />
+                    @*@Ajax.ActionLink("New Result Entry", "NewExamResult", "ExamResult", new AjaxOptions { HttpMethod = "GET", InsertionMode = InsertionMode.Replace, LoadingElementId = "progress", UpdateTargetId = "divNewResultEntry" })
+                    @Ajax.ActionLink("Show", "Show", new AjaxOptions { HttpMethod = "GET", InsertionMode = InsertionMode.Replace, UpdateTargetId = "dialog_window_id", OnComplete = "your_js_function();" })*@
+                </div>
+            </fieldset>
+            <div id="divNewResultEntry">
+            </div>
+            <div id="divMessage" class="message-success">
+                @if (ViewBag.Mode)
+                {
+                    @ViewBag.Message
+                }
+            </div>
+        </div>
+    }
+</section>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

@@ -1,0 +1,78 @@
+﻿@*@model IEnumerable<IIT.EResult.Models.ExamResultModel>*@
+
+@model IList<IIT.EResult.Models.ExamResultModel>
+<fieldset>
+    <legend>Exam Result</legend>
+    <div>
+        @if (Model != null)
+        {
+            <table>
+                <tr style="background-color: gray;">
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>CourseId</th>
+                    <th>BatchNo</th>
+                    <th>ExamType</th>
+                    <th>ExamNo</th>
+                    <th>Mark</th>
+                </tr>
+                @for (var i = 0; i < Model.Count(); i++)
+                {
+                    <tr>
+                        @if (ViewBag.EditMode)
+                        {
+                            @Html.HiddenFor(x => x[i].Id)
+                        }
+                        @Html.HiddenFor(x => x[i].StudentId)
+                        @Html.HiddenFor(x => x[i].StudentName)
+                        @Html.HiddenFor(x => x[i].CourseId)
+                        @Html.HiddenFor(x => x[i].BatchNo)
+                        @Html.HiddenFor(x => x[i].ExamType)
+                        @Html.HiddenFor(x => x[i].ExamNo)
+
+                        <td>@Html.DisplayFor(x => x[i].StudentId)</td>
+                        <td>@Html.DisplayFor(x => x[i].StudentName)</td>
+                        <td>@Html.DisplayFor(x => x[i].CourseId)</td>
+                        <td>@Html.DisplayFor(x => x[i].BatchNo)</td>
+                        <td>@Html.DisplayFor(x => x[i].ExamType)</td>
+                        <td>@Html.DisplayFor(x => x[i].ExamNo)</td>
+                        <td>@Html.EditorFor(x => x[i].Mark)</td>
+                    </tr>
+                }
+            </table>
+        }
+    </div>
+    <div>
+        <input type="submit" id="btnSubmitResult" value="Submit Marks" />
+    </div>
+</fieldset>
+
+@*<fieldset>
+    <legend>Exam Result</legend>
+    <div>
+        <table>
+            <tr style="background-color: gray;">
+                <th>ID</th>
+                <th>Name</th>
+                <th>CourseId</th>
+                <th>BatchNo</th>
+                <th>ExamType</th>
+                <th>Mark</th>
+            </tr>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@Html.DisplayFor(modelItem => item.StudentId)</td>
+                    <td>@Html.DisplayFor(modelItem => item.StudentName)</td>
+                    <td>@Html.DisplayFor(modelItem => item.CourseId)</td>
+                    <td>@Html.DisplayFor(modelItem => item.BatchNo)</td>
+                    <td>@Html.DisplayFor(modelItem => item.ExamType)</td>
+                    <td>@Html.EditorFor(modelItem => item.Mark)</td>
+                </tr>
+            }
+        </table>
+    </div>
+    <div>
+        <input type="button" id="btnSubmitResult" value="Submit Result" />
+    </div>
+</fieldset>*@

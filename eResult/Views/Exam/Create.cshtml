@@ -1,0 +1,106 @@
+﻿@model IIT.EResult.Models.ExamModel
+
+@{
+        //ViewBag.Title = "Create";
+}
+
+<hgroup class="title">
+    <h1>@ViewBag.Title.</h1>
+</hgroup>
+
+<section id="studentForm">
+    @using (Html.BeginForm("Create", "Exam", FormMethod.Post, new { id = "mainForm", name = "mainForm" }))
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true)
+
+        <fieldset>
+            <legend>Exam Form</legend>
+            @if (ViewBag.EditMode)
+            {
+                @Html.HiddenFor(m => m.Id)
+            }
+            <div>
+                @Html.LabelFor(m => m.BatchNo)
+            </div>
+            <div>
+                @Html.DropDownListFor(model => model.BatchNo, new List<SelectListItem> 
+                    { 
+                        new SelectListItem { Text = "--- Select Batch ---", Value = "" },
+                        new SelectListItem { Text = "MIT-7th", Value = "MIT-7th" },
+                        new SelectListItem { Text = "MIT-8th", Value = "MIT-8th" },
+                        new SelectListItem { Text = "MIT-9th", Value = "MIT-9th" },
+                        new SelectListItem { Text = "MIT-10th", Value = "MIT-10th" },
+                        new SelectListItem { Text = "MIT-11th", Value = "MIT-11th" },
+                    }, new { @class = "edroupdown" })
+                @Html.ValidationMessageFor(m => m.BatchNo)
+            </div>
+            <div>
+                @Html.LabelFor(m => m.CourseId)
+            </div>
+            <div>
+                @Html.DropDownListFor(model => model.CourseId, new List<SelectListItem> 
+                    { 
+                        new SelectListItem { Text = "--- Select Course ---", Value = "" },
+                        new SelectListItem { Text = "MITM301", Value = "MITM301" },
+                        new SelectListItem { Text = "MITM302", Value = "MITM302" },
+                        new SelectListItem { Text = "MITM304", Value = "MITM304" },
+                        new SelectListItem { Text = "MITM306", Value = "MITM306" },
+                        new SelectListItem { Text = "MITE403", Value = "MITE403" },
+                        new SelectListItem { Text = "MITE404", Value = "MITE404" },
+                        new SelectListItem { Text = "MITE408", Value = "MITE408" },
+                        new SelectListItem { Text = "MITE411", Value = "MITE411" },
+                        new SelectListItem { Text = "MITE412", Value = "MITE412" },
+                        new SelectListItem { Text = "MITP421", Value = "MITP421" },
+                    }, new { @class = "edroupdown" })
+                @Html.ValidationMessageFor(m => m.CourseId)
+            </div>
+            <div>
+                @Html.LabelFor(m => m.ExamType)
+            </div>
+            <div>
+                @Html.DropDownListFor(model => model.ExamType, new List<SelectListItem> 
+                    { 
+                        new SelectListItem { Text = "--- Select Exam Type ---", Value = "" },
+                        new SelectListItem { Text = "Quiz", Value = "Quiz" },
+                        new SelectListItem { Text = "Assignment", Value = "Assignment" },
+                        new SelectListItem { Text = "Presentation", Value = "Presentation" },
+                        new SelectListItem { Text = "Attendance", Value = "Attendance" },
+                        new SelectListItem { Text = "Mid Term", Value = "Mid Term" },
+                        new SelectListItem { Text = "Final", Value = "Final" },
+                    }, new { @class = "edroupdown" })
+                @Html.ValidationMessageFor(m => m.ExamType)
+            </div>
+            <div>
+                @Html.LabelFor(m => m.ExamNo)
+            </div>
+            <div>
+                @Html.DropDownListFor(model => model.ExamNo, new List<SelectListItem> 
+                    { 
+                        new SelectListItem { Text = "--- Select Exam No ---", Value = "" },
+                        new SelectListItem { Text = "1", Value = "1" },
+                        new SelectListItem { Text = "2", Value = "2" },
+                        new SelectListItem { Text = "3", Value = "3" },
+                        new SelectListItem { Text = "4", Value = "4" },
+                        new SelectListItem { Text = "5", Value = "5" },
+                    }, new { @class = "edroupdown" })
+                @Html.ValidationMessageFor(m => m.ExamNo)
+            </div>
+            <div>
+                @Html.LabelFor(m => m.ExamMarks)
+            </div>
+            <div>
+                @Html.TextBoxFor(m => m.ExamMarks)
+                @Html.ValidationMessageFor(m => m.ExamMarks)
+            </div>
+
+            <div>
+                <input type="submit" value="Submit" />
+            </div>
+        </fieldset>
+    }
+</section>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

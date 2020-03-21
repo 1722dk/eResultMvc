@@ -1,0 +1,36 @@
+﻿@model IIT.EResult.Models.TeacherModel
+
+@{
+    ViewBag.Title = "Details";
+    ViewBag.Name = Model.Name;
+}
+
+<h2>@ViewBag.Name</h2>
+<div>
+    <fieldset>
+        <legend>Teacher Details</legend>
+        <table>
+            <tr>
+                <td>@Html.LabelFor(m => m.Name)</td>
+                <td>@Html.DisplayFor(m => m.Name)</td>
+            </tr>
+            <tr>
+                <td>@Html.LabelFor(m => m.Designation)</td>
+                <td>@Html.DisplayFor(m => m.Designation)</td>
+            </tr>
+            <tr>
+                <td>@Html.LabelFor(m => m.Email)</td>
+                <td>@Html.DisplayFor(m => m.Email)</td>
+            </tr>
+            <tr>
+                <td>@Html.LabelFor(m => m.ContactNo)</td>
+                <td>@Html.DisplayFor(m => m.ContactNo)</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>@Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = Model.Id })</td>
+            </tr>
+        </table>
+    </fieldset>
+</div>

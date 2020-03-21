@@ -1,0 +1,45 @@
+﻿@model IEnumerable<IIT.EResult.Models.ResultModel>
+
+<fieldset>
+    <legend>Final Result</legend>
+    <div>
+        @if (Model != null)
+        {
+            <table>
+                <tr style="background-color: gray;">
+                   <th>ID</th>
+	               <th>Name</th>
+	               <th>BatchNo</th>
+	               <th>CourseId</th>
+	               <th>Quiz</th>
+	               <th>Assignment</th>
+	               <th>Presentation</th>
+	               <th>Attendance</th>
+	               <th>MidTerm</th>
+	               <th>Final</th>
+	               <th>Total</th>
+	               <th>GPA</th>
+	               <th>Grade</th>
+                </tr>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@Html.DisplayFor(modelItem => item.StudentId)</td>
+                        <td>@Html.DisplayFor(modelItem => item.StudentName)</td>
+                        <td>@Html.DisplayFor(modelItem => item.BatchNo)</td>
+                        <td>@Html.DisplayFor(modelItem => item.CourseId)</td>
+                        <td>@Html.DisplayFor(modelItem => item.Quiz)</td>
+                        <td>@Html.DisplayFor(modelItem => item.Assignment)</td>
+                        <td>@Html.DisplayFor(modelItem => item.Presentation)</td>
+                        <td>@Html.DisplayFor(modelItem => item.Attendance)</td>
+                        <td>@Html.DisplayFor(modelItem => item.MidTerm)</td>
+                        <td>@Html.DisplayFor(modelItem => item.Final)</td>
+                        <td>@Html.DisplayFor(modelItem => item.Total)</td>
+                        <td>@Html.DisplayFor(modelItem => item.GradePoint)</td>
+                        <td>@Html.DisplayFor(modelItem => item.GradePointLetter)</td>
+                    </tr>
+                }
+            </table>
+        }
+    </div>
+</fieldset>
